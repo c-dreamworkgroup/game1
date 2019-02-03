@@ -1,5 +1,5 @@
 	造梦西游v2.9
-PS:lisence和.
+PS:LISENCE和.gitignore是协议文件，请不要动
 
 【说明与约定】
 · 得到本游戏时双击运行"main.exe"文件开始游戏
