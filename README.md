@@ -3,6 +3,8 @@ PS:LICENSE和.gitignore是协议文件，请不要动
 
 洛谷团队：https://www.luogu.org/team/show?teamid=11854
 
+QQ群:https://jq.qq.com/?_wv=1027&k=5Tc7g6Z
+
 【说明与约定】
 · 得到本游戏时双击运行"main.exe"文件开始游戏
 · 尊重作者，禁止私自修改源代码
