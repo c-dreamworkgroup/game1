@@ -1,5 +1,4 @@
-#include<bits/stdc++.h>
-#include<windows.h>
+#include "includes.include"
 using namespace std;
 struct Node{
     int hm;

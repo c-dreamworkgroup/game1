@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+#include<windows.h>
+#include<stdio.h>
+#include<time.h>
+#include<stdlib.h>
+#include<conio.h>
+#define c1 cout<<"已领取\n";else cout<<"未领取\n";
+#define c2 else cout<<"领取失败\n";system("pause");break;
+#define c3 cout<<"你确定这玩意儿能使用？\n"
+#define getdarkblue SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),9);
+#define getdarkgreen SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),2);
+#define getblue SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),3);
+#define getred SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),4);
+#define getdarkpink SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),5);
+#define getyellow SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),6);
+#define getwhite SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
+#define getgreen SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
+#define getpink SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),13);
+#define the_game_version "V2.9" 
+#define shuo_hao if(hour>=7&&hour<=10)cout<<"上午好,";else if(hour>=5&&hour<=6)cout<<"早上好,";else if(hour==12||hour==11)cout<<"中午好,";else if(hour>=13&&hour<=18)cout<<"下午好,";else cout<<"晚上好,";cout<<p.mz<<endl 

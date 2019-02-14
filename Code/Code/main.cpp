@@ -1,20 +1,4 @@
-#include<bits/stdc++.h>
-#include<windows.h>
-#include<stdio.h>
-#include<time.h>
-#include<stdlib.h>
-#define c1 cout<<"已领取\n";else cout<<"未领取\n";
-#define c2 else cout<<"领取失败\n";system("pause");break;
-#define c3 cout<<"你确定这玩意儿能使用？\n"
-#define getdarkblue SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),9);
-#define getdarkgreen SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),2);
-#define getblue SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),3);
-#define getred SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),4);
-#define getdarkpink SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),5);
-#define getyellow SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),6);
-#define getwhite SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
-#define getgreen SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
-#define getpink SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),13);
+#include "includes.include"
 using namespace std;
 int year,month,day,hour,minute,second;
 int syear,smonth,sday,ylsj=0;
@@ -24,35 +8,42 @@ int gjjs,fyjs,spjs;//计数
 bool qth[11],pd,zdbc=1;
 string nowwq="silly",nowfj="silly",nowsp="silly";
 int gjgs=1,fygs=1,spgs=1;
-struct l_1
-{
+int x1;
+struct l_1 {//这里是玩家 自行研究 我看不懂(尽力了) p就是player了 
     string mz;
-    int level,jy,gj,sm,fy,mf,gjzjc,fyzjc,jb,jyls,smzjc;
+    int level/*等级*/,jy/*经验*/,gj,sm,fy,mf,gjzjc,fyzjc,jb/*金币*/,jyls,smzjc;
     int zsm,mfzjc;
     int zbsmjc,zbfyjc,zbgjjc,zbmfjc;
     int js;
     int jsm,jmf,jgj,jfy;
     double smcs,gjcs,fycs;
 }p;//player
-struct l_2{
+void jue_se_xian_shi(){//根据p.js显示角色 
+	switch(p.js)
+       {
+       	case 1:getred;cout<<"齐天大圣孙悟空\n";break;
+       	case 2:getyellow;cout<<"天蓬元帅猪悟能\n";break;
+       	case 3:getgreen;cout<<"卷帘大将沙悟净\n";break;
+       	case 4:getblue;cout<<"三藏法师唐三藏\n";break;
+	}
+}
+struct l_2{ //小怪 sfkq:打死了没 mz:名字 有数组xg(小怪)和boss 
     bool sfkq;
     string mz;
 }xg[101],boss[101];/*小怪*/
-struct l_3{
+struct l_3{ //? 
     string mz;
     int jc1,jc2,jg,pz;
 }gjsp[101],fysp[101],sp[101];
-struct l_4{
+struct l_4{//? 
     string name;
     int hm;
 }jin[101];
-struct l_5{
+struct l_5{//道具  mz:名字,jc:加成 有数组gjzb,fyzb,spzb,dj 
     string mz;//名字
     int jc;//加成/数量
 }gjzb[110],fyzb[110],spzb[110],dj[110];//道具
-int x1;
-int read()
-{
+int read() {//快读 
     int tot=0,f=1;
     char c=getchar();
     while(c<'0'||c>'9')
@@ -67,8 +58,8 @@ int read()
     }
     return tot*f;
 }
-void zh()
-{
+void zh() { //这里是注册的函数 
+
     char b[4]={'.','t','x','t'};
     string zh;
     int xz;
@@ -136,8 +127,7 @@ void zh()
         }
     }
 }
-void save()
-{
+void save() {//在退出时保存所有数据 
     ofstream fout(aa);
     int nhour,nminute;
     time_t now_time=time(0);
@@ -163,8 +153,7 @@ void save()
     fout<<p.js<<endl;
     fout.close();
 }
-void qd()
-{
+void qd() {//在线礼包系统 
     int nhour,nminute;
     time_t now_time=time(0);
     struct tm*timeinfo;
@@ -221,8 +210,7 @@ void qd()
         default:{cout<<"what are you doing?\n";system("pause");break;}
     }
 }
-void chushihua()
-{
+void chushihua() {//储存一些名字 
     GetStdHandle(STD_OUTPUT_HANDLE);
     for(int i=1;i<=100;i++)xg[i].sfkq=false,boss[i].sfkq=false;
     xg[1].sfkq=true;
@@ -268,8 +256,7 @@ void chushihua()
     dj[1].mz="BOSS结晶";dj[2].mz="魔法石";dj[3].mz="生命石";dj[4].mz="周末积分";dj[5].mz="角色更换卡";
     dj[6].mz="年兽断角";dj[7].mz="年兽牙";dj[8].mz="攻击石";dj[9].mz="一袋金币";
 }
-void shop()
-{
+void shop() {//进入商店 
     int xxz;
     system("cls");
     cout<<"\t\t\t《商店》\n";
@@ -373,24 +360,21 @@ void shop()
         }
     }
 }
-void help()
-{
+void help() {//帮助 
     system("cls");
     cout<<"\t\t\t帮助:\n副本:副本的难度较为简单，打掉相应的怪物会获得相应的经验和金币\n商店:可以用金币买东西\nboss:有一定的难度，5级及以上可挑战\n";
     cout<<"在线礼包:在线相应时间可获得礼包，同一天在线时间不会少去(退出也不会),不过第二天就会清0\n";
     cout<<"技能选择在<设置>里\t个人资料在<背包>里\n";
-    cout<<"关于本游戏：本游戏会不定时更新\n如果你发现了BUG，或有什么好的建议，那么就在“www.luogu.org”里私信我或在某个帖子里@我\n\t作者：hulean\n";
+    cout<<"关于本游戏:\n版本:"<<the_game_version<<"\n本游戏会不定时更新\n如果你发现了BUG，或有什么好的建议，那么就在“www.luogu.org”里私信我或在某个帖子里@我\n作者：hulean\n制作团队:\n1.number_two\n2.johnvp(负责后勤)\n以及很多人\n您还可以领红包赞助我们!(具体见首页的'赞助我们')\n";
     system("pause");
     return;
 }
-void boss_pd()
-{
+void boss_pd() {//? 
     if(xg[5].sfkq)boss[1].sfkq=true;
     if(xg[9].sfkq)boss[2].sfkq=true;
     if(xg[13].sfkq)boss[3].sfkq=true;
 }
-void choose_boss()
-{
+void choose_boss() {//选择boss(打boss函数) 
     system("cls");
     boss_pd();
     int xxxz;
@@ -438,8 +422,7 @@ void choose_boss()
         default:{cout<<"what are you doing?\n";system("pause");break;}
     }
 }
-void weekend()
-{
+void weekend(){//周末活动 
     system("cls");
     int dayx,monthx,yearx,wdayx;
     time_t t;
@@ -489,95 +472,15 @@ void weekend()
 		system("pause");
 	}
 }
-void spring_F()
-{
-	system("cls");
-    int dayx,monthx,yearx,wdayx;
-    time_t t;
-    struct tm*timeinfo;
-    time(&t);
-    timeinfo=localtime(&t);
-    dayx=timeinfo->tm_mday;
-    monthx=timeinfo->tm_mon + 1;
-    yearx=timeinfo->tm_year + 1900;
-    if(!(monthx==2&&(dayx>=5&&dayx<=13))){cout<<"现在不是春节期间\n";system("pause");return;}
-    getred;
-    printf(
-    "\t\t\t狗年已展千重锦；猪岁再登百步楼。\n"
-	"\t\t\t狗问平安随腊去；猪生财富报春来。\n"
-	"\t\t\t狗蹲户外家长泰；猪拱门前户发财。\n"
-	"\t\t\t肥猪拱户门庭富；紫燕报春岁月新。\n"
-	"\t\t\t猪多粮足农家富；子孝孙贤亲寿高。\n"
-	"\t\t\t科技财神尊上座；吉祥猪崽报新春。\n"
-	"\t\t\t恰逢盛世猪如象；喜庆新春鱼化龙。\n"
-	"\t\t\t高老庄中称快婿；天逢府内是元戎。\n"
-	"\t\t\t景象升平开泰运；金猪如意获丰财。\n"
-	"\t\t\t窗花剪猪招财富；壁上画虎镇鬼神。\n"
-	"\t\t\t蕃繁六畜猪堪饲；富裕千家君献功。\n"
-	"\t\t\t燕衔喜信春光好；猪拱财门幸福长。\n"
-	"\t\t\t爆竹升天送狗岁；春花遍地缀猪年。\n");
-	cout<<"\t\t\t";cout<<"在";Sleep(100);cout<<"这";Sleep(100);cout<<"里";Sleep(100);cout<<"，";
-	Sleep(100);cout<<"作";Sleep(100);cout<<"者";Sleep(100);cout<<"给";
-	Sleep(100);cout<<"大";Sleep(100);cout<<"家";Sleep(300);getred;
-	cout<<"  拜";Sleep(300);cout<<"  年";Sleep(300);cout<<"  啦！\n";
-	system("pause");
-	cout<<"1| 商店\n2| 挑战\n";
-    cout<<"请选择:";
-    int xzz=read();
-	system("cls");
-    if(xzz==2)
-    {
-    	cout<<"进入后，将会去挑战【年兽】，成功者可获得【年兽断角】与【年兽牙】\n";
-		system("pause");
-		cout<<"加载中...\n";
-		ofstream fout("进入副本.txt");
-		fout<<p.mz<<" "<<p.zsm<<" "<<p.sm<<" "<<p.gj<<" "<<p.fy<<" "<<p.mf<<endl;
-		fout.close();
-		system("spring_F");
-		system("pause");
-		ifstream fin("副本--主程序.txt");
-		bool PD;
-	    fin>>PD;
-	    if(PD)
-	    {
-			int sj=rand()%4+1;
-			if(sj==1)cout<<"获得年兽断角*1\n",dj[6].jc++;
-			if(sj==2)cout<<"获得年兽牙*1\n",dj[7].jc++;
-			if(sj==3)cout<<"获得年兽断角*1，年兽牙*1\n",dj[6].jc++,dj[7].jc++;
-			if(sj==4)cout<<"什么也没获得\n";
-		}
-	    fin.close();
-	    system("pause");
-	}
-	else
-	{
-		cout<<"1| 一袋金币(5个)  年兽断角:2\n";
-		cout<<"2| 魔法石(魔法永久+5) 年兽断角:3\n";
-		cout<<"3| 生命石(生命永久+30) 年兽断角:3\n";
-		cout<<"4| 攻击石(攻击永久+5) 年兽牙:3\n";
-    	cout<<"5| 退出\n";
-    	cout<<"你的年兽断角:"<<dj[6].jc<<endl;
-    	cout<<"你的年兽牙:"<<dj[7].jc<<endl;
-    	cout<<"请选择:";
-    	int xzz=read();
-    	switch(xzz)
-    	{
-    		case 1:if(dj[6].jc>=2)dj[9].jc++,dj[6].jc-=2,cout<<"购买成功，进入背包查看\n";else cout<<"购买失败\n";break;
-    		case 2:if(dj[6].jc>=3)dj[2].jc++,dj[6].jc-=3,cout<<"购买成功，进入背包查看\n";else cout<<"购买失败\n";break;
-    		case 3:if(dj[6].jc>=3)dj[3].jc++,dj[6].jc-=3,cout<<"购买成功，进入背包查看\n";else cout<<"购买失败\n";break;
-    		case 4:if(dj[7].jc>=3)dj[8].jc++,dj[7].jc-=3,cout<<"购买成功，进入背包查看\n";else cout<<"购买失败\n";break;
-    		default:break;
-		}
-		system("pause");
-	}
+void zan_zhu(){//赞助我们 未完成 
+	system("start https://www.luogu.org/blog/lijiaan/zan-zhu-wo-men");
 }
-void BAG();
-int main()
-{
-	srand(time(0));
-    getwhite;
+void BAG();//先申明背包,其实在下面函数 ps:我已无语 
+int main() {//主函数 
+	srand(time(0));//随机数种子 
+    getwhite;/*白字*/
     int xz;
-    chushihua();zh();
+    chushihua();zh();//先储存数据,然后开始登陆 
     system("pause");system("cls");
     cout<<"\t\t\t<造梦西游v2.9>\n";Sleep(1000);
     time_t now_time=time(0);
@@ -588,9 +491,9 @@ int main()
     day=timeinfo->tm_mday;
     hour=timeinfo->tm_hour;
     minute=timeinfo->tm_min;
-    second=timeinfo->tm_sec;
+    second=timeinfo->tm_sec;//搞了一大堆时间,下次搞个时间函数 
     if(x1||syear!=year||smonth!=month||sday!=day)memset(qth,false,sizeof(qth)),ylsj=0;
-    if(x1)cout<<"请输入你的昵称:",cin>>p.mz;
+    if(x1)cout<<"请输入你的昵称:",cin>>p.mz;//第一次注册 
     cout<<"\t\t\t\n";
     if(x1)
     {
@@ -618,11 +521,7 @@ int main()
         case 3:p.jsm=100;p.jmf=50;p.jgj=12;p.jfy=4;p.smcs=5;p.gjcs=2;p.fycs=1;break;
         case 4:p.jsm=80;p.jmf=55;p.jgj=16;p.jfy=2;p.smcs=4;p.gjcs=2.7;p.fycs=0.8;break;
     }
-    if(hour>=7&&hour<=10)cout<<"上午好,";
-    else if(hour>=5&&hour<=6)cout<<"早上好,";
-    else if(hour==12||hour==11)cout<<"中午好,";
-    else if(hour>=13&&hour<=18)cout<<"下午好,";
-    else cout<<"晚上好,";cout<<p.mz<<endl;
+    shuo_hao;//说各种好,在include文件里 
     system("pause");
     while(1)
     {
@@ -640,13 +539,7 @@ int main()
         getyellow;cout<<"\t\t     <造梦西游v2.9>\n\n";
         getwhite;
         cout<<"你的角色:"; 
-        switch(p.js)
-        {
-        	case 1:getred;cout<<"齐天大圣孙悟空\n";break;
-        	case 2:getyellow;cout<<"天蓬元帅猪悟能\n";break;
-        	case 3:getgreen;cout<<"卷帘大将沙悟净\n";break;
-        	case 4:getblue;cout<<"三藏法师唐三藏\n";break;
-		}
+        jue_se_xian_shi(); 
         getgreen;cout<<p.mz<<"的等级:"<<p.level<<"\t";
         cout<<p.mz<<"的金币:"<<p.jb<<"\t";
         cout<<p.mz<<"的经验:"<<p.jy<<"/"<<p.jyls<<endl;
@@ -656,7 +549,7 @@ int main()
         cout<<"\t\t|";getblue;cout<<"\t3| BOSS领地\t";getred;cout<<"|\n";
         cout<<"\t\t|";getblue;cout<<"\t4| 活动与礼包\t";getred;cout<<"|\n";
         cout<<"\t\t|";getblue;cout<<"\t5| 保存并退出\t";getred;cout<<"|\n";
-        cout<<"\t\t|";getred;cout<<"\t6| 帮助\t\t";getred;cout<<"|\n";
+        cout<<"\t\t|";getblue;cout<<"\t6| 赞助我们\t\t";getred;cout<<"|\n";
         cout<<"\t\t|";getblue;cout<<"\t7| 设置\t\t";getred;cout<<"|\n";
         cout<<"\t\t|";getblue;cout<<"\t8| 背包\t\t";getred;cout<<"|\n";
         cout<<"\t\t-------------------------\n";
@@ -701,25 +594,24 @@ int main()
             case 4:
                 {
                     system("cls");
-                    cout<<"1| 在线礼包\n2| 周末活动\n3| 春节活动\n";
+                    cout<<"1| 在线礼包\n2| 周末活动\n";
                     int xxzz;
                     xxzz=read();
                     switch(xxzz)
                     {
                         case 1:{qd();break;}
                         case 2:{weekend();break;}
-                        case 3:spring_F();break;
                         default:{cout<<"what are you doing?\n";system("pause");break;}
                     }
                     break;
                 }
             case 5:{save();return 0;}
-            case 6:{help();break;}
+            case 6:{zan_zhu();break;}
             case 7:
             {
                 system("cls");
                 cout<<"\t\t\t《设置》\n";
-                cout<<"1| 技能设置\n2| 自动保存\n3| 返回\n";
+                cout<<"1| 技能设置\n2| 自动保存\n3| 帮助\n4| 返回\n";
                 xxz=read();
                 switch(xxz)
                 {
@@ -760,6 +652,11 @@ int main()
                         system("pause");
                         break;
                     }
+                    case 3:
+					{
+						help();	
+						break;
+					} 
                 }
                 break;
             }
@@ -769,8 +666,7 @@ int main()
     }
     return 0;
 }
-void BAG()
-{
+void BAG() {//背包函数 
     system("cls");
     cout<<"以下为个人资料，看看就好\n";
     getgreen;cout<<p.mz<<"的等级:"<<p.level<<"\n"<<p.mz<<"的血量:"<<p.sm<<"\n"<<p.mz<<"的魔法:"<<p.mf<<"\n";
